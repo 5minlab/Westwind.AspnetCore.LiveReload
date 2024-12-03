@@ -52,6 +52,12 @@ namespace Westwind.AspNetCore.LiveReload
                 return;
             }
 
+            if (context.Request.ContentType == "application/grpc")
+            {
+                await _next(context);
+                return;
+            }
+
             // serve live reload script
             if(await HandleServeLiveReloadScript(context))
                 return;
